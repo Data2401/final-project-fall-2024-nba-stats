@@ -29,15 +29,54 @@ Are there more great players now?
 library(dplyr)
 library(tidyr)
 library(tidyverse)
+library(ggplot2)
 
 ```
 
 ## Unfiltered data
 ```{r}
+team_totals <- read.csv("Team Totals.csv")
+
+team_per_game <- read.csv("Team Stats Per Game.csv")
+```
+
+## 2004 Top 10 Scoring Teams
+```{r}
+team_per_game %>%
+  filter(season == "2004") %>%
+  arrange(desc(pts_per_game)) %>%
+  head(10) %>%
+  select(season, team, abbreviation, pts_per_game)
 
 ```
 
-## 2003 Top 10 Scoring Teams
+## 2014 Top 10 Scoring Teams
+```{r}
+team_per_game %>%
+  filter(season == "2014") %>%
+  arrange(desc(pts_per_game)) %>%
+  head(10) %>%
+  select(season, team, abbreviation, pts_per_game)
+```
+
+## 2019 Top 10 Scoring Teams
+```{r}
+team_per_game %>%
+  filter(season == "2019") %>%
+  arrange(desc(pts_per_game)) %>%
+  head(10) %>%
+  select(season, team, abbreviation, pts_per_game)
+```
+
+## 2024 Top 10 Scoring Teams
+```{r}
+team_per_game %>%
+  filter(season == "2024") %>%
+  arrange(desc(pts_per_game)) %>%
+  head(10) %>%
+  select(season, team, abbreviation, pts_per_game)
+```
+
 ```{r}
 
 ```

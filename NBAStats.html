@@ -392,12 +392,89 @@ library(tidyverse)</code></pre>
 ## ✖ dplyr::filter() masks stats::filter()
 ## ✖ dplyr::lag()    masks stats::lag()
 ## ℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors</code></pre>
+<pre class="r"><code>library(ggplot2)</code></pre>
 </div>
 <div id="unfiltered-data" class="section level2">
 <h2>Unfiltered data</h2>
+<pre class="r"><code>team_totals &lt;- read.csv(&quot;Team Totals.csv&quot;)
+
+team_per_game &lt;- read.csv(&quot;Team Stats Per Game.csv&quot;)</code></pre>
 </div>
 <div id="top-10-scoring-teams" class="section level2">
-<h2>2003 Top 10 Scoring Teams</h2>
+<h2>2004 Top 10 Scoring Teams</h2>
+<pre class="r"><code>team_per_game %&gt;%
+  filter(season == &quot;2004&quot;) %&gt;%
+  arrange(desc(pts_per_game)) %&gt;%
+  head(10) %&gt;%
+  select(season, team, abbreviation, pts_per_game)</code></pre>
+<pre><code>##    season                   team abbreviation pts_per_game
+## 1    2004       Dallas Mavericks          DAL        105.2
+## 2    2004       Sacramento Kings          SAC        102.8
+## 3    2004     Los Angeles Lakers          LAL         98.2
+## 4    2004        Milwaukee Bucks          MIL         98.0
+## 5    2004         Denver Nuggets          DEN         97.2
+## 6    2004    Seattle SuperSonics          SEA         97.1
+## 7    2004      Memphis Grizzlies          MEM         96.7
+## 8    2004         Boston Celtics          BOS         95.3
+## 9    2004   Los Angeles Clippers          LAC         94.8
+## 10   2004 Minnesota Timberwolves          MIN         94.5</code></pre>
+</div>
+<div id="top-10-scoring-teams-1" class="section level2">
+<h2>2014 Top 10 Scoring Teams</h2>
+<pre class="r"><code>team_per_game %&gt;%
+  filter(season == &quot;2014&quot;) %&gt;%
+  arrange(desc(pts_per_game)) %&gt;%
+  head(10) %&gt;%
+  select(season, team, abbreviation, pts_per_game)</code></pre>
+<pre><code>##    season                   team abbreviation pts_per_game
+## 1    2014   Los Angeles Clippers          LAC        107.9
+## 2    2014        Houston Rockets          HOU        107.7
+## 3    2014 Minnesota Timberwolves          MIN        106.9
+## 4    2014 Portland Trail Blazers          POR        106.7
+## 5    2014  Oklahoma City Thunder          OKC        106.2
+## 6    2014      San Antonio Spurs          SAS        105.4
+## 7    2014           Phoenix Suns          PHO        105.2
+## 8    2014       Dallas Mavericks          DAL        104.8
+## 9    2014         Denver Nuggets          DEN        104.4
+## 10   2014  Golden State Warriors          GSW        104.3</code></pre>
+</div>
+<div id="top-10-scoring-teams-2" class="section level2">
+<h2>2019 Top 10 Scoring Teams</h2>
+<pre class="r"><code>team_per_game %&gt;%
+  filter(season == &quot;2019&quot;) %&gt;%
+  arrange(desc(pts_per_game)) %&gt;%
+  head(10) %&gt;%
+  select(season, team, abbreviation, pts_per_game)</code></pre>
+<pre><code>##    season                   team abbreviation pts_per_game
+## 1    2019        Milwaukee Bucks          MIL        118.1
+## 2    2019  Golden State Warriors          GSW        117.7
+## 3    2019   New Orleans Pelicans          NOP        115.4
+## 4    2019     Philadelphia 76ers          PHI        115.2
+## 5    2019   Los Angeles Clippers          LAC        115.1
+## 6    2019 Portland Trail Blazers          POR        114.7
+## 7    2019  Oklahoma City Thunder          OKC        114.5
+## 8    2019        Toronto Raptors          TOR        114.4
+## 9    2019       Sacramento Kings          SAC        114.2
+## 10   2019     Washington Wizards          WAS        114.0</code></pre>
+</div>
+<div id="top-10-scoring-teams-3" class="section level2">
+<h2>2024 Top 10 Scoring Teams</h2>
+<pre class="r"><code>team_per_game %&gt;%
+  filter(season == &quot;2024&quot;) %&gt;%
+  arrange(desc(pts_per_game)) %&gt;%
+  head(10) %&gt;%
+  select(season, team, abbreviation, pts_per_game)</code></pre>
+<pre><code>##    season                  team abbreviation pts_per_game
+## 1    2024        Indiana Pacers          IND        123.3
+## 2    2024        Boston Celtics          BOS        120.6
+## 3    2024 Oklahoma City Thunder          OKC        120.1
+## 4    2024       Milwaukee Bucks          MIL        119.0
+## 5    2024         Atlanta Hawks          ATL        118.3
+## 6    2024    Los Angeles Lakers          LAL        118.0
+## 7    2024      Dallas Mavericks          DAL        117.9
+## 8    2024 Golden State Warriors          GSW        117.8
+## 9    2024      Sacramento Kings          SAC        116.6
+## 10   2024          Phoenix Suns          PHO        116.2</code></pre>
 </div>
 
 
