@@ -1,0 +1,44 @@
+---
+title: "How has the NBA changed over the years"
+author: "Cesar Macias"
+date: "2024-04-18"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Introduction
+
+## Our Questions
+Main Questions:
+How has NBA Offenses changed over the years? 
+How different was it 20, 10, and 5 years ago compared to now?
+
+Other Questions:
+Are basketball games in the NBA played at a faster pace?
+How are the games being played faster?
+Are teams shooting more three pointers?
+If a team is great offensively, is the best player on that team?
+How has the NBA Changed for an individual player?
+Are there more great players now? 
+
+## Get Ready
+```{r}
+library(dplyr)
+library(tidyr)
+library(tidyverse)
+
+```
+
+## Unfiltered data
+```{r}
+
+```
+
+## 2003 Top 10 Scoring Teams
+```{r}
+
+```
+
