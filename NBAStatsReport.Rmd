@@ -1,0 +1,346 @@
+---
+title: "How has the NBA changed over the years"
+author: "Cesar Macias"
+date: "2024-04-18"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Introduction
+There is a debate within the basketball community and fans of the NBA. Fans cannot decide whether or not the rise of scoring within the NBA is related to the overall team scoring or the individual player. Some think that it is the former while others think that it is the latter. Others, believe that there is some correlation between two. We know that scoring had increased over the years, especially during the last decade. The question is: by how much and how? And whether there is a correlation between teams and the players.
+
+## Our Questions
+Main Questions:
+How has NBA team offenses changed over the years? 
+How different was it 20, 10, and 5 years ago compared to now?
+
+Other Questions:
+Are basketball games in the NBA played at a faster pace?
+How are the games being played faster?
+Are teams shooting more three pointers?
+How has the NBA changed for the individual players?
+Are there more great players now? 
+
+## Get Ready
+```{r}
+library(dplyr)
+library(tidyr)
+library(tidyverse)
+library(ggplot2)
+```
+
+## Unfiltered data
+```{r}
+team_per_game <- read.csv("Team Stats Per Game.csv")
+player_per_game <- read.csv("Player Per Game.csv")
+```
+
+## Filtered Team Data
+First, we looked at the teams who scored the most points per game since it is the easiest metric to measure how the league has changed. Here we filter the data so that the only teams that we want are from the 2004, 2014, 2019, and 2023 seasons. 
+```{r}
+my_team_per_game <- team_per_game %>%
+  filter(season == "2004" | season == "2014" | season == "2019" | season == "2023")
+```
+
+### 2004 Top 10 Scoring Teams
+Here we filter the data of the top 10 teams who scored the most points per game in 2004.
+```{r}
+my_team_per_game %>%
+  filter(season == "2004") %>%
+  arrange(desc(pts_per_game)) %>%
+  head(10) %>%
+  select(season, team, abbreviation, pts_per_game)
+
+```
+
+### 2014 Top 10 Scoring Teams
+Filtered the data of the top 10 teams who scored the most points per game in 2014.
+```{r echo=FALSE}
+my_team_per_game %>%
+  filter(season == "2014") %>%
+  arrange(desc(pts_per_game)) %>%
+  head(10) %>%
+  select(season, team, abbreviation, pts_per_game)
+```
+
+### 2019 Top 10 Scoring Teams
+Filtered the data of the top 10 teams who scored the most points per game in 2019.
+```{r echo=FALSE}
+my_team_per_game %>%
+  filter(season == "2019") %>%
+  arrange(desc(pts_per_game)) %>%
+  head(10) %>%
+  select(season, team, abbreviation, pts_per_game)
+```
+
+### 2023 Top 10 Scoring Teams
+Filtered the data of the top 10 teams who scored the most points per game in 2023.
+```{r echo=FALSE}
+my_team_per_game %>%
+  filter(season == "2023") %>%
+  arrange(desc(pts_per_game)) %>%
+  head(10) %>%
+  select(season, team, abbreviation, pts_per_game)
+```
+
+Now let's take a look at how on overage all teams have changed over the years.
+```{r}
+my_team_per_game %>%
+  filter(team == "League Average") %>%
+  arrange(season) %>%
+  select(season, team, pts_per_game) %>%
+  ggplot(aes(x = season, y = pts_per_game)) + 
+  geom_col() +
+  scale_y_continuous(name = "Points Per Game (Average)")
+```
+
+As we can see, on average over the years, there has been a constant upward to averaging more points as the years have gone by.
+
+If a team is averaging more points per game, it usually means that more shooting opportunities are being created which
+come from the amount of assists a team has per game. We filter the top teams of each year we are analyzing and doing the same thing as we did for the points scored but instead we want to find out the amount of assists per game.
+
+
+### 2004 Top 10 Assisting Teams
+Here we filter the data of the top 10 teams who had the most amount of assists in 2004.
+```{r}
+my_team_per_game %>%
+  filter(season == "2004") %>%
+  arrange(desc(ast_per_game)) %>%
+  head(10) %>%
+  select(season, team, abbreviation, ast_per_game)
+```
+
+### 2014 Top 10 Assisting Teams
+Filter the data of the top 10 teams who had the most amount of assists in 2014.
+```{r echo=FALSE}
+my_team_per_game %>%
+  filter(season == "2014") %>%
+  arrange(desc(ast_per_game)) %>%
+  head(10) %>%
+  select(season, team, abbreviation, ast_per_game)
+```
+
+### 2019 Top 10 Assisting Teams
+Filter the data of the top 10 teams who had the most amount of assists in 2019.
+```{r echo=FALSE}
+my_team_per_game %>%
+  filter(season == "2019") %>%
+  arrange(desc(ast_per_game)) %>%
+  head(10) %>%
+  select(season, team, abbreviation, ast_per_game)
+```
+
+### 2023 Top 10 Assisting Teams
+Filter the data of the top 10 teams who had the most amount of assists in 2023.
+```{r echo=FALSE}
+my_team_per_game %>%
+  filter(season == "2023") %>%
+  arrange(desc(ast_per_game)) %>%
+  head(10) %>%
+  select(season, team, abbreviation, ast_per_game)
+```
+
+Now let's take a look at how on overage all teams have changed over the years.
+```{r}
+my_team_per_game %>%
+  filter(team == "League Average") %>%
+  arrange(season) %>%
+  select(season, team, ast_per_game) %>%
+  ggplot(aes(x = season, y = ast_per_game)) + 
+  geom_col() +
+  scale_y_continuous(name = "Assists Per Game (Average)")
+```
+
+With this knowlege we can now see how both point scored and assists are correleated. 
+```{r}
+my_team_per_game %>%
+  filter(team == "League Average") %>%
+  arrange(season) %>%
+  select(season, team, pts_per_game, ast_per_game)
+```
+
+With this table, we can see that as the years have gone by, we see about a 20 points increase since 2004, but on average there has only been an increase of 4 assists per game which at most would equal to 12 more points. So where are those extra 8 points from. 
+
+We can now take a look at the types of shots that teams attempt. As well as the amount of free throws that teams shoot. 
+
+First let's take a look at the amount of shots taken and broken down into the type of shot. Either a 2-pointer or 3-pointer.
+```{r}
+my_team_per_game %>%
+  filter(team == "League Average") %>%
+  arrange(season) %>%
+  select(season, fga_per_game, fg_per_game, x3pa_per_game, x3p_per_game, x2pa_per_game, x2p_per_game)
+```
+
+From this data, we can see that on average, the league now takes about 8 more shots, but take 10 less 2-pointers and 20 more 3-pointers compared to what the league shot in 2004. The league also makes about 3.5 percent more of its shots, yet we only see a 1.4 percent increase in 3-point percentage. Although, we do see a greater increase in the league's 2-point shot where there is a 8.8 percent increase. 
+
+This only explains the change of the type of shots taken.
+
+Now let's take a look at the change of free throws within the league.
+```{r}
+my_team_per_game %>%
+  filter(team == "League Average") %>%
+  arrange(season) %>%
+  select(season, team, fta_per_game, ft_per_game, ft_percent)
+```
+
+Interestingly, there is a small dip of free throws attempted and about the same amount made and a slight increase in the league's percentage made. Overall, the league has stayed the same throughout the last 20 years when it comes to the amount attempted and made. 
+
+When it comes to team shots over the last twenty years, there has been a consistent increase of about one more shot each year. The league is also faster since the time clock has stayed the same but there is now more shots being taken and made. 
+
+## Individual Player Changes
+
+### Filtered Player Data
+Filtering data for the players that played during the 2004, 2014, 2019, or 2023 seasons.
+```{r}
+my_player_per_game <- player_per_game %>%
+  filter(season == "2004" | season == "2014" | season == "2019" | season == "2023")
+```
+
+Here we can see all of the players that averaged more than 20 points per game during the 2004 Season. If a player was traded during the season, that player would appear for however many teams he played for in that seasons and an average for the whole season. In this case, "Stephon Marbury" had to be removed for when he played for Pheonix. Withing the graph we can see that the majority of players that averaged 20 or more points were Shooting Guards and Power Forwards.
+
+### Players that averaged 20 or more points in 2004
+```{r}
+my_player_per_game %>%
+  filter(season == "2004" & pts_per_game >= 20) %>% 
+  filter(player != "Stephon Marbury" | tm != "PHO") %>%
+  ggplot(aes(x = player, y = pts_per_game)) +
+  geom_col() +
+  coord_flip()
+```
+
+Here we have the total number of players that averaged 20 or more points in the 2004 season and categorized by the players' position. The data again had to be filtered to only show their averages for that season instead of each individual team that they played for if they were traded during the season. 
+
+### Amount of plavers that scored 20 or more points in 2004 by position
+```{r echo=FALSE}
+my_player_per_game %>%
+  filter(season == "2004" & pts_per_game >= 20) %>% 
+  filter(player != "Stephon Marbury" | tm != "PHO") %>%
+  group_by(pos) %>%
+  summarise(player = n())
+```
+
+Now we can look at the same data but for the rest of the years.
+
+### Players that averaged 20 or more points in 2014
+
+From the filtered data that we are working with, for the 2014 season, we see our first player that averaged 30 or more points.
+```{r}
+my_player_per_game %>%
+  filter(season == "2014" & pts_per_game >= 20) %>% 
+  filter(player != "Rudy Gay" | tm != "SAC") %>%
+  ggplot(aes(x = player, y = pts_per_game)) +
+  geom_col() +
+  coord_flip()
+```
+
+
+### Amount of plavers that scored 20 or more points in 2014 by position
+```{r echo=FALSE}
+my_player_per_game %>%
+  filter(season == "2014" & pts_per_game >= 20) %>%
+  filter(player != "Rudy Gay" | tm != "SAC") %>%
+  group_by(pos) %>%
+  summarise(player = n())
+```
+### Amount of plavers that scored 30 or more points in 2014 by position
+
+```{r echo=FALSE}
+my_player_per_game %>%
+  filter(season == "2014" & pts_per_game >= 30) %>% 
+  group_by(pos) %>%
+  summarise(player = n())
+```
+
+### Players that averaged 20 or more points in 2019
+
+For the 2019 season, not only do we find another player that average 30 points. He also averaged 35 or more during the season. 
+```{r}
+my_player_per_game %>%
+  filter(season == "2019" & pts_per_game >= 20) %>% 
+  filter(player != "Tobias Harris" | tm != "LAC") %>%
+  ggplot(aes(x = player, y = pts_per_game)) +
+  geom_col() +
+  coord_flip()
+```
+
+### Amount of plavers that scored 20 or more points in 2019 by position
+
+```{r echo=FALSE}
+my_player_per_game %>%
+  filter(season == "2019" & pts_per_game >= 20) %>%
+  filter(player != "Tobias Harris" | tm != "LAC") %>%
+  group_by(pos) %>%
+  summarise(player = n())
+```
+
+### Amount of plavers that scored 30 or more points in 2019 by position
+```{r echo=FALSE}
+my_player_per_game %>%
+  filter(season == "2019" & pts_per_game >= 30) %>% 
+  group_by(pos) %>%
+  summarise(player = n())
+```
+
+### Amount of plavers that scored 35 or more points in 2019 by position
+
+```{r echo=FALSE}
+my_player_per_game %>%
+  filter(season == "2019" & pts_per_game >= 35) %>% 
+  group_by(pos) %>%
+  summarise(player = n())
+```
+
+### Players that averaged 20 or more points in 2023
+
+Here we find that we have an abundance of players that scored 20 or more points last year. There were so many that scored 20 points that there were a total of 20 players that scored 25 or more points. Compare that to in 2004 we found that there were only 24 players total who scored 20 or more. 
+
+```{r fig.height=10}
+my_player_per_game %>%
+  filter(season == "2023" & pts_per_game >= 20) %>% 
+  filter(player != "Kevin Durant" | (tm != "BRK" & tm != "PHO")) %>%
+  filter(player != "Kyrie Irving" | (tm != "BRK" & tm != "DAL")) %>%
+  filter(player != "Mikal Bridges" | tm != "BRK") %>%
+  ggplot(aes(x = player, y = pts_per_game)) +
+  geom_col() +
+  coord_flip()
+```
+
+### Amount of plavers that scored 20 or more points in 2023 by position
+
+```{r echo=FALSE}
+my_player_per_game %>%
+  filter(season == "2023" & pts_per_game >= 20) %>%
+  filter(player != "Kevin Durant" | (tm != "BRK" & tm != "PHO")) %>%
+  filter(player != "Kyrie Irving" | (tm != "BRK" & tm != "DAL")) %>%
+  filter(player != "Mikal Bridges" | tm != "BRK") %>%
+  group_by(pos) %>%
+  summarise(player = n())
+```
+#### Amount of players that scored 25 or more points in 2023 by position
+
+```{r echo=FALSE}
+my_player_per_game %>%
+  filter(season == "2023" & pts_per_game >= 25) %>% 
+  filter(player != "Kevin Durant" | (tm != "BRK" & tm != "PHO")) %>%
+  filter(player != "Kyrie Irving" | (tm != "BRK" & tm != "DAL")) %>%
+  filter(player != "Mikal Bridges" | tm != "BRK") %>%
+  group_by(pos) %>%
+  summarise(player = n())
+```
+#### Amount of players that scored 30 or more points in 2023 by position
+
+```{r echo=FALSE}
+my_player_per_game %>%
+  filter(season == "2023" & pts_per_game >= 30) %>% 
+  filter(player != "Kevin Durant" | (tm != "BRK" & tm != "PHO")) %>%
+  filter(player != "Kyrie Irving" | (tm != "BRK" & tm != "DAL")) %>%
+  filter(player != "Mikal Bridges" | tm != "BRK") %>%
+  group_by(pos) %>%
+  summarise(player = n())
+```
+
+## Conlusion
+In conclusion, there has a been a major shift in the amount of points that teams make and the pace at which they make those points. Since more points are being scored, there is also a slight increase in the amount of assists that teams average. This can then lead to the increase amount of players that average more points to the amount we saw back in 2004. With the increase of pace from the teams, this leads to more chances of an individual being able to score and with the help of the increase of 3-pointers being shot. It is no surprise that more players are scoring higher than the players in 2004 did. 
